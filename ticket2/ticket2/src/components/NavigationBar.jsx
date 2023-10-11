@@ -1,13 +1,16 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 
-const NavigationBar = () => {
+const NavigationBar = ( { navigation } ) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button}>
         <Icon name="home" size={30} color="#fff" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity 
+        style={styles.button}
+        onPress={() => navigation.navigate('Profile')}
+      >
         <Icon name="user" size={30} color="#fff" />
       </TouchableOpacity>
     </View>
@@ -24,7 +27,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     height: 60,
     position: 'absolute',
-    bottom: 30,
+    bottom: 0,
     left: 0,
     right: 0,
   },
