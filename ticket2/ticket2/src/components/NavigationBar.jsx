@@ -3,8 +3,13 @@ import { TouchableOpacity, View, StyleSheet } from 'react-native';
 
 const NavigationBar = ( { navigation } ) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.button}>
+    <View 
+      style={styles.container}
+    >
+      <TouchableOpacity 
+        style={styles.button}
+        onPress={() => navigation.navigate('Home')}
+      >
         <Icon name="home" size={30} color="#fff" />
       </TouchableOpacity>
       <TouchableOpacity 
