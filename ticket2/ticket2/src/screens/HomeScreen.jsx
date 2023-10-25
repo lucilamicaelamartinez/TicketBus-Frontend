@@ -3,7 +3,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import NavigationBar from '../components/NavigationBar';
 import { Header } from '../components/Header';
-
+import { BookingButton } from '../components/BookingButton'
 export const HomeScreen = ({navigation}) => {
   return (
     <>
@@ -16,7 +16,7 @@ export const HomeScreen = ({navigation}) => {
       <StatusBar style="auto" />
 
       <NavigationBar navigation={navigation} />
-      
+      <BookingButton navigation={navigation} />
     </View>
 
     </>  
