@@ -1,12 +1,16 @@
 
 import React from 'react'
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, BackHandler } from 'react-native';
 import { Header } from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 
 export const ProfileScreen = ( { navigation } ) => {
+  const handleExitPress = () => {
+    BackHandler.exitApp();
+  };
   return (
+    
     <>
 
     <View style={styles.container}>
@@ -45,9 +49,9 @@ export const ProfileScreen = ( { navigation } ) => {
 
       <View>
 
-        <AppButton textButton="Editar" color="blue" />
-        <AppButton textButton="Cerrar Sesión" color="red" />
-        <AppButton textButton="Eliminar Cuenta" color="yellow" />
+        <AppButton textButton="Last Reservations" color="blue" onPress={() => navigation.navigate('LastReservations')}/>
+        <AppButton textButton="Edit" color="yellow" />
+        <AppButton textButton="Exit" color="red" onPress={handleExitPress} />
 
       </View>
 

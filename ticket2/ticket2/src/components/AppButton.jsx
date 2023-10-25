@@ -1,11 +1,11 @@
 import React from 'react'
 import { Text, TouchableOpacity } from 'react-native'
 
-export const AppButton = ( { textButton, color } ) => {
+export const AppButton = ( { textButton, color, onPress } ) => {
   return (
     <>
     
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <Text style={{
           backgroundColor: color,
           color: 'white',
