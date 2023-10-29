@@ -4,6 +4,7 @@ import { StatusBar, StyleSheet, Text, View, BackHandler } from 'react-native';
 import { Header } from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const ProfileScreen = ( { navigation } ) => {
   const handleExitPress = () => {
@@ -49,9 +50,27 @@ export const ProfileScreen = ( { navigation } ) => {
 
       <View>
 
-        <AppButton textButton="Last Reservations" color="blue" onPress={() => navigation.navigate('LastReservations')}/>
-        <AppButton textButton="Edit" color="yellow" />
-        <AppButton textButton="Exit" color="red" onPress={handleExitPress} />
+      <AppButton
+        textButton="Last Reservations"
+        color="#e38b3d"
+        onPress={() => navigation.navigate('LastReservations')}
+      >
+        <Icon name="location" size={20} color="white" style={{ marginRight: 10 }} />
+      </AppButton>
+
+        <AppButton 
+        textButton="Edit" 
+        color="#e38b3d" 
+        >
+          <Icon name="pencil" size={20} color="white" style={{ marginRight: 10 }} />
+        </AppButton>
+        <AppButton 
+        textButton="Exit" 
+        color="#e38b3d" 
+        onPress={handleExitPress}
+        >
+          <Icon name="exit" size={20} color="white" style={{ marginRight: 10 }} />
+        </AppButton>
 
       </View>
 
@@ -74,7 +93,7 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     // flex: 1,
-    backgroundColor: '#FAE5D3',
+    backgroundColor: '#cfbeb0',
     justifyContent: 'top',
     // poneme un border de un pixel
     borderWidth: 1,

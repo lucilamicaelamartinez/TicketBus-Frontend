@@ -1,11 +1,15 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, Image, View } from 'react-native'
+
 
 export const Header = () => {
   return (
     <>
         <View style={styles.container}>
-            <Text style={styles.title}>Ticket Bus</Text>
+        <Image
+        source={require('/home/lucilam/Documentos/Front/TicketBus-Frontend/ticket2/ticket2/assets/logo.png')} 
+        style={styles.logo}
+      />
         </View>
     </>
   )
@@ -16,14 +20,16 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'yellow',
+      backgroundColor: '#e38b3d',
       padding: 10,
-      color: 'red',
       width: '100%',
+      height: 100,
     },
-    title: {
-        fontSize: 50,
-        fontWeight: 'bold',
+    logo: {
+      width: 100, // Ancho de tu logotipo
+      height: 100, // Alto de tu logotipo,
+      resizeMode: 'contain',
+      flex: 1,
 
     },
   });

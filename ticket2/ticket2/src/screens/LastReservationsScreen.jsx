@@ -43,7 +43,7 @@ const ReservationCard = ({ date, origin, destination, company }) => {
   return (
     <View style={styles.card}>
       <View style={styles.iconContainer}>
-        <Icon name="bus" size={30} color="#000" />
+        <Icon name="bus" size={30} color="#e38b3d" />
       </View>
       <View style={styles.textContainer}>
       <Text style={styles.label}>Date: {date}</Text>
@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   mainContainer: {
-    backgroundColor: '#FAE5D3',
-    borderWidth: 1,
+    backgroundColor: '#cfbeb0',
+    borderWidth: 0,
     padding: 20,
     margin: 20,
   },

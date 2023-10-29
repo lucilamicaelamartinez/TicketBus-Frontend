@@ -1,22 +1,18 @@
 import React from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 
-export const AppButton = ( { textButton, color, onPress } ) => {
+export const AppButton = ( { textButton, color, onPress, children } ) => {
   return (
     <>
     
-      <TouchableOpacity onPress={onPress}>
-        <Text style={{
-          backgroundColor: color,
-          color: 'white',
-          padding: 10,
-          marginTop: 10,
-          textAlign: 'center',
-          fontSize: 20,
-        }}>{textButton}</Text>
+      <TouchableOpacity style={{ backgroundColor: color, padding: 10, borderRadius: 5 }} onPress={onPress}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          {children}
+          <Text style={{ color: 'white', marginLeft: 10 }}>{textButton}</Text>
+      </View>
       </TouchableOpacity>
 
     </>
-  )
-}
+  );
+};
 

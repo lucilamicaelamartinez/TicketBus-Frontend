@@ -10,13 +10,13 @@ const NavigationBar = ( { navigation } ) => {
         style={styles.button}
         onPress={() => navigation.navigate('Home')}
       >
-        <Icon name="home" size={30} color="#fff" />
+        <Icon name="home" size={30} color="black" />
       </TouchableOpacity>
       <TouchableOpacity 
         style={styles.button}
         onPress={() => navigation.navigate('Profile')}
       >
-        <Icon name="user" size={30} color="#fff" />
+        <Icon name="user" size={30} color="black" />
       </TouchableOpacity>
     </View>
   );
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   button: {
     paddingHorizontal: 10,
     paddingVertical: 5,
-    backgroundColor: 'orange',
+    backgroundColor: '#e38b3d',
     borderRadius: 5,
   }
 });
