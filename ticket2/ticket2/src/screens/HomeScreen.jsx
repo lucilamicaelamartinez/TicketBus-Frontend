@@ -149,7 +149,7 @@ export const HomeScreen = ({navigation}) => {
       <StatusBar style="auto" />
 
       <NavigationBar navigation={navigation} />
-      
+      <BookingButton navigation={navigation} />
     </View>
 
     </>  
