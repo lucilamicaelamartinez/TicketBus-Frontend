@@ -5,6 +5,7 @@ import { Header } from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 import Icon from 'react-native-vector-icons/Ionicons';
+import BackButton from '../components/BackButton';
 
 export const ProfileScreen = ( { navigation } ) => {
   const handleExitPress = () => {
@@ -15,6 +16,7 @@ export const ProfileScreen = ( { navigation } ) => {
     <>
 
     <View style={styles.container}>
+    <BackButton onPress={() => navigation.goBack()} /> 
 
       <Header />
 
@@ -48,7 +50,7 @@ export const ProfileScreen = ( { navigation } ) => {
 
       </View>
 
-      <View>
+      <View style={styles.buttonsContainer}>
 
       <AppButton
         textButton="Last Reservations"
@@ -57,13 +59,14 @@ export const ProfileScreen = ( { navigation } ) => {
       >
         <Icon name="location" size={20} color="white" style={{ marginRight: 10 }} />
       </AppButton>
-
+      <View style={styles.buttonSeparator} />
         <AppButton 
         textButton="Edit" 
         color="#e38b3d" 
         >
           <Icon name="pencil" size={20} color="white" style={{ marginRight: 10 }} />
         </AppButton>
+        <View style={styles.buttonSeparator} />
         <AppButton 
         textButton="Exit" 
         color="#e38b3d" 
@@ -128,5 +131,14 @@ const styles = StyleSheet.create({
   },
   dataTexts: {
     fontSize: 20,
-  }
+  },
+  buttonsContainer: {
+    flexDirection: 'column',  // Cambia la dirección del diseño a column
+    justifyContent: 'flex-start', // Alinea los botones en la parte superior
+    marginTop: 20,  // Agrega espacio en la parte superior de los botones
+},
+buttonSeparator: {
+  height: 10, // Puedes ajustar la altura según el espacio que desees entre los botones
+},
+
 });

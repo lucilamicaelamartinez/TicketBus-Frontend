@@ -7,6 +7,7 @@ import { Calendar, LocaleConfig } from 'react-native-calendars';
 import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
+import BackButton from '../components/BackButton';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -30,7 +31,7 @@ LocaleConfig.locales['en'] = {
     'Feb.',
     'Mar.',
     'Apr.',
-    'May',
+    'May.',
     'Jun.',
     'Jul.',
     'Aug.',
@@ -89,11 +90,21 @@ export const HomeScreen = ({navigation}) => {
     setFilteredDestinationCities(filteredDestination);
   }, [originQuery, destinationQuery, citiesData]);
 
+  const handleSearch = () => {
+    // Navega a la pantalla "ChooseTripScreen" con los parámetros de origen y destino
+    navigation.navigate('ChooseTrip', {
+      origin: originQuery,
+      destination: destinationQuery,
+    });
+  };
+
   return (
     <>
 
     <View style={styles.container}>
-
+    <BackButton onPress={() => navigation.goBack()} 
+      isFirstScreen={!navigation.canGoBack()}
+    /> 
       <Header />
       <Calendar
         current={selectedDate}
@@ -131,7 +142,7 @@ export const HomeScreen = ({navigation}) => {
         onChangeText={setDestinationQuery}
         placeholder="Destination"
       />
-      <TouchableOpacity style={styles.searchButton}>
+      <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
         <Icon name="search" size={30} color="white" />
       </TouchableOpacity>
 

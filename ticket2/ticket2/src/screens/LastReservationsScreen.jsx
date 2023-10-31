@@ -4,11 +4,13 @@ import { StatusBar } from 'react-native';
 import { Header } from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
+import BackButton from '../components/BackButton';
 
 export const LastReservations = ({ navigation }) => {
   return (
     <>
       <View style={styles.container}>
+      <BackButton onPress={() => navigation.goBack()} isFirstScreen={false} /> 
         <Header />
         <View style={styles.mainContainer}>
           <View style={styles.reservationContainer}>
