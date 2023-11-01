@@ -8,7 +8,8 @@ import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BackButton from '../components/BackButton';
-
+//import { BookingButton } from '../components/BookingButton';
+ 
 const windowWidth = Dimensions.get('window').width;
 
 LocaleConfig.locales['en'] = {
@@ -149,7 +150,7 @@ export const HomeScreen = ({navigation}) => {
       <StatusBar style="auto" />
 
       <NavigationBar navigation={navigation} />
-      <BookingButton navigation={navigation} />
+      {/* <BookingButton navigation={navigation} /> */}
     </View>
 
     </>  

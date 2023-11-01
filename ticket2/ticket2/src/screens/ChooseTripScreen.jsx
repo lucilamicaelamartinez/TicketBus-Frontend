@@ -1,9 +1,10 @@
 import React from 'react';
-import { StatusBar, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Header } from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 import BackButton from '../components/BackButton';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export const ChooseTripScreen = ({ navigation, route }) => {
     // Obtén el origen y destino seleccionados de la pantalla anterior
@@ -54,8 +55,23 @@ export const ChooseTripScreen = ({ navigation, route }) => {
         availableSeats: 20,
       },
     ];
+
+    // Función para manejar la selección de una compañía de viaje
+  const handleSelectTrip = (trip) => {
+    // Navegar a la pantalla de Booking y pasar los detalles del viaje seleccionado
+    navigation.navigate('Booking', {
+      origin,
+      destination,
+      company: trip.company,
+      seat: trip.availableSeats,  // Puedes ajustar esto según tu lógica
+      departure: trip.departureTime,
+      arrival: trip.arrivalTime,
+      price: trip.price,
+    });
+  };
   
     return (
+        // <View>
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.container}>
             <BackButton onPress={() => navigation.goBack()} />
@@ -63,48 +79,42 @@ export const ChooseTripScreen = ({ navigation, route }) => {
             <Header />
     
             <View style={styles.tripInfo}>
-            <Text style={styles.tripInfoText}>Origin: {origin}</Text>
-            <Text style={styles.tripInfoText}>Destination: {destination}</Text>
+              <View style={styles.infoRow}>
+                <Text style={styles.infoTitle}>Origin:</Text>
+                <Text style={styles.infoText}>{origin}</Text>
+              </View>
+              <View style={styles.infoRow}>
+                <Text style={styles.infoTitle}>Destination:</Text>
+                <Text style={styles.infoText}>{destination}</Text>
+              </View>
             </View>
     
             {tripOptions.map((trip, index) => (
             <View style={styles.tripOption} key={index}>
                 <Text style={styles.companyText}>{trip.company}</Text>
-                <Text style={styles.timeText}>
-                Departure: {trip.departureTime} - Arrival: {trip.arrivalTime}
-                </Text>
+                <Text style={styles.timeText}>Departure: {trip.departureTime} - Arrival: {trip.arrivalTime}</Text>
                 <Text style={styles.priceText}>Price: {trip.price}</Text>
-                <Text style={styles.seatsText}>
-                Seats Available: {trip.availableSeats}
-                </Text>
-                <AppButton
-                textButton="Select"
-                color="#e38b3d"
-                onPress={() => handleSelectTrip(trip)}
-                />
+                <Text style={styles.seatsText}> Seats Available: {trip.availableSeats} </Text>
+                <AppButton textButton="Select"color="#e38b3d" onPress={() => handleSelectTrip(trip)}/>
             </View>
             ))}
     
-            <AppButton
-            textButton="Back"
-            color="#e38b3d"
-            onPress={() => navigation.goBack()}
-            />
-    
+            <AppButton textButton="Back" color="#e38b3d" onPress={() => navigation.goBack()}/>
             <StatusBar style="auto" />
     
             <NavigationBar navigation={navigation} />
         </View>
       </ScrollView>
+    //   </View>
     );
   };
   
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      flexGrow: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-      justifyContent: 'top',
+      justifyContent: 'flex-start',
     },
     contentContainer: {
         paddingHorizontal: 20, // Espacio entre el contenido y los bordes de la pantalla
@@ -134,6 +144,19 @@ export const ChooseTripScreen = ({ navigation, route }) => {
     },
     seatsText: {
       fontSize: 16,
+    },
+    infoRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginVertical: 5,
+    },
+    infoTitle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginRight: 10,
+    },
+    infoText: {
+      fontSize: 18,
     },
   });
   

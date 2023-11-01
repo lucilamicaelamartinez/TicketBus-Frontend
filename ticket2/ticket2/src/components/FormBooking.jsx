@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-const FormBooking = () => {
+export const FormBooking = () => {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [genero, setGenero] = useState('');
@@ -73,4 +73,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FormBooking;

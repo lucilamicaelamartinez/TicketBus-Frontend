@@ -4,6 +4,7 @@ import { HomeScreen } from '../screens/HomeScreen'
 import { ProfileScreen } from '../screens/ProfileScreen'
 import { LastReservations } from '../screens/LastReservationsScreen'
 import { ChooseTripScreen } from '../screens/ChooseTripScreen'
+import { BookingScreen } from '../screens/BookingScreen'
 
 export const StackNavigator = () => {
 
@@ -21,7 +22,8 @@ export const StackNavigator = () => {
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="LastReservations" component={LastReservations} />
       <Stack.Screen name="ChooseTrip" component={ChooseTripScreen} />
-
+      <Stack.Screen name="Booking" component={BookingScreen} />
+      
     </Stack.Navigator>
 
   )
