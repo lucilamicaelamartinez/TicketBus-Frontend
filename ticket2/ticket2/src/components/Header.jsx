@@ -1,13 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, Image, View } from 'react-native'
-
+import logo from '../assets/logo.png'
 
 export const Header = () => {
   return (
     <>
         <View style={styles.container}>
         <Image
-        source={require('/home/lucilam/Documentos/Front/TicketBus-Frontend/ticket2/ticket2/assets/logo.png')} 
+        source={logo} 
         style={styles.logo}
       />
         </View>
