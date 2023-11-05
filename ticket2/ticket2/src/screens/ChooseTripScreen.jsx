@@ -8,7 +8,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export const ChooseTripScreen = ({ navigation, route }) => {
     // Obtén el origen y destino seleccionados de la pantalla anterior
-    const { origin, destination } = route.params;
+    const { origin, destination, selectedDate } = route.params;
   
     // Datos aleatorios para las compañías de viaje
     const tripOptions = [
@@ -60,12 +60,13 @@ export const ChooseTripScreen = ({ navigation, route }) => {
   const handleSelectTrip = (trip) => {
     // Navegar a la pantalla de Booking y pasar los detalles del viaje seleccionado
     navigation.navigate('Booking', {
-      origin,
-      destination,
+      origin: origin,
+      destination: destination,
+      selectedDate: selectedDate, // Reemplaza con la fecha que corresponda
       company: trip.company,
       seat: trip.availableSeats,  // Puedes ajustar esto según tu lógica
-      departure: trip.departureTime,
-      arrival: trip.arrivalTime,
+      departureTime: trip.departureTime,
+      arrivalTime: trip.arrivalTime,
       price: trip.price,
     });
   };

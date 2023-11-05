@@ -10,7 +10,7 @@ import BackButton from '../components/BackButton';
 import Icon from 'react-native-vector-icons/Ionicons'; 
 
 export const BookingScreen = ({ navigation, route }) => {
-  const { origin, destination, company, seat, departure, arrival, price } = route.params;
+  const { origin, destination, company, seat, departureTime, arrivalTime, price, selectedDate} = route.params;
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -21,10 +21,30 @@ export const BookingScreen = ({ navigation, route }) => {
     // Here you can process the entered data, for example, send it via an API.
     console.log(`First Name: ${firstName}, Last Name: ${lastName}, Gender: ${gender}, Email: ${email}`);
   };
-  const handleContinue = () => {
-    // Perform any necessary actions when the "Continue" button is pressed.
-  };
 
+  const handleContinue = () => {
+    navigation.navigate('FullBooking', {
+      tripData: {
+        origin: origin,
+        destination: destination,
+        date: selectedDate, // Reemplaza con la fecha que corresponda
+        departureTime: departureTime, // Obtén la hora de salida de los parámetros
+        arrivalTime: arrivalTime, // Obtén la hora de llegada de los parámetros
+        price: price,
+        selectedTrip: {
+          company: company,
+          // Agrega otros datos según sea necesario
+        },
+      },
+      userData: {
+        fullName: `${firstName} ${lastName}`,
+        email: email,
+        gender: gender,
+        // Agrega otros datos según sea necesario
+      },
+    }); 
+  };
+  
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -35,8 +55,8 @@ export const BookingScreen = ({ navigation, route }) => {
           <Text style={styles.summaryText}>Destination: {destination}</Text>
           <Text style={styles.summaryText}>Company: {company}</Text>
           <Text style={styles.summaryText}>Seat: {seat}</Text>
-          <Text style={styles.summaryText}>Departure: {departure}</Text>
-          <Text style={styles.summaryText}>Arrival: {arrival}</Text>
+          <Text style={styles.summaryText}>Departure: {departureTime}</Text>
+          <Text style={styles.summaryText}>Arrival: {arrivalTime}</Text>
           <Text style={styles.summaryText}>Price: {price}</Text>
         </View>
 
@@ -78,7 +98,7 @@ export const BookingScreen = ({ navigation, route }) => {
           <AppButton textButton="Back" color="#e38b3d" onPress={() => navigation.goBack()} >
             <Icon name="ios-arrow-back" size={20} color="white" style={{ marginRight: 10 }} />
           </AppButton>
-          <AppButton textButton="Continue" color="#e38b3d" onPress={() => navigation.navigate('LastReservations')}>
+          <AppButton textButton="Continue" color="#e38b3d" onPress={handleContinue}>
             <Icon name="ios-arrow-forward" size={20} color="white" style={{ marginRight: 10 }} />
           </AppButton>
         </View>

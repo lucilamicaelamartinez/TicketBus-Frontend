@@ -96,6 +96,7 @@ export const HomeScreen = ({navigation}) => {
     navigation.navigate('ChooseTrip', {
       origin: originQuery,
       destination: destinationQuery,
+      selectedDate: selectedDate, 
     });
   };
 
