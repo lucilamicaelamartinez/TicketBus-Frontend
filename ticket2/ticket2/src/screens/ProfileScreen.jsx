@@ -62,7 +62,9 @@ export const ProfileScreen = ( { navigation } ) => {
       <View style={styles.buttonSeparator} />
         <AppButton 
         textButton="Edit" 
-        color="#e38b3d" 
+        color="#e38b3d"
+        onPress={() => navigation.navigate('Edit')}
+ 
         >
           <Icon name="pencil" size={20} color="white" style={{ marginRight: 10 }} />
         </AppButton>

@@ -98,7 +98,7 @@ export const BookingScreen = ({ navigation, route }) => {
           <AppButton textButton="Back" color="#e38b3d" onPress={() => navigation.goBack()} >
             <Icon name="ios-arrow-back" size={20} color="white" style={{ marginRight: 10 }} />
           </AppButton>
-          <AppButton textButton="Continue" color="#e38b3d" onPress={handleContinue}>
+          <AppButton textButton="Continue" color="#e38b3d" onPress={handleContinue} style={{ marginTop: 10}} >
             <Icon name="ios-arrow-forward" size={20} color="white" style={{ marginRight: 10 }} />
           </AppButton>
         </View>
