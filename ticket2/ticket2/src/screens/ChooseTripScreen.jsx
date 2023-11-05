@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Header } from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 import BackButton from '../components/BackButton';
 import { ScrollView } from 'react-native-gesture-handler';
+import TicketBusApi from '../api/TicketBus';
 
 export const ChooseTripScreen = ({ navigation, route }) => {
     // Obtén el origen y destino seleccionados de la pantalla anterior
     const { origin, destination, selectedDate } = route.params;
-  
+        const getVehicles=async()=>{
+          const resp = await TicketBusApi.get(
+            '/vehicle'
+          )
+         const seats=resp.data
+         return seats 
+        }
+        const [vehicle, setvehicle] = useState()
+        useEffect(() => {
+          setvehicle= getVehicles()
+        
+          
+        }, [])
+        
     // Datos aleatorios para las compañías de viaje
     const tripOptions = [
       {
@@ -17,7 +31,7 @@ export const ChooseTripScreen = ({ navigation, route }) => {
         departureTime: '08:00 AM',
         arrivalTime: '03:30 PM',
         price: '$80',
-        availableSeats: 25,
+        availableSeats: vehicle,
       },
       {
         company: 'Union',

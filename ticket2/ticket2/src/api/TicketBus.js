@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseURL = 'http://localhost:8080';
+const baseURL = 'http://192.168.18.4:9000';
 
 const TicketBusApi = axios.create({
     baseURL
