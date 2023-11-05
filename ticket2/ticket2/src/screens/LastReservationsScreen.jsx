@@ -9,9 +9,11 @@ import BackButton from '../components/BackButton';
 export const LastReservations = ({ navigation }) => {
   return (
     <>
+      <Header />
       <View style={styles.container}>
+        
       <BackButton onPress={() => navigation.goBack()} isFirstScreen={false} /> 
-        <Header />
+       
         <View style={styles.mainContainer}>
           <View style={styles.reservationContainer}>
             <ReservationCard
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   reservationContainer: {
-    marginTop: 20,
+    marginTop: 10,
   },
   card: {
     flexDirection: 'row',

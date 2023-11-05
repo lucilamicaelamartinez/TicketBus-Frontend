@@ -142,5 +142,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   
+  buttonContainer: {        
+    flexDirection: 'row', // Coloca los botones en la misma línea
+    justifyContent: 'space-between', // Centra los botones horizontalmente
+    marginTop: 20, // Espaciado superior
+  },
   
 });
