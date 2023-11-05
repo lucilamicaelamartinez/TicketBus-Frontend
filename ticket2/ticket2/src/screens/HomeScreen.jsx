@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, Dimensions, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import NavigationBar from '../components/NavigationBar';
 import { Header } from '../components/Header';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
@@ -8,8 +8,7 @@ import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BackButton from '../components/BackButton';
-//import { BookingButton } from '../components/BookingButton';
- 
+
 const windowWidth = Dimensions.get('window').width;
 
 LocaleConfig.locales['en'] = {
@@ -54,7 +53,6 @@ LocaleConfig.locales['en'] = {
 };
 
 LocaleConfig.defaultLocale = 'en';
-
 
 export const HomeScreen = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState('');
@@ -102,92 +100,91 @@ export const HomeScreen = ({navigation}) => {
 
   return (
     <>
-
-    <View style={styles.container}>
-    <BackButton onPress={() => navigation.goBack()} 
-      isFirstScreen={!navigation.canGoBack()}
-    /> 
-      <Header />
-      <Calendar
-        current={selectedDate}
-        onDayPress={(day) => setSelectedDate(day.dateString)}
-        style={styles.calendar}
-        theme={{
-          calendarBackground: 'white',
-          textSectionTitleColor: 'black',
-          dayTextColor: 'black',
-          monthTextColor: 'black',
-          arrowColor: 'black',
-          selectedDayBackgroundColor: 'orange', // Color de fondo al tocar el día
-          'stylesheet.calendar.header': {
-            week: {
-              marginTop: 5,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+    <ImageBackground source={require('../assets/login.jpg')} style={styles.backgroundImage}>
+      <View style={styles.container}>
+        <BackButton onPress={() => navigation.goBack()} 
+          isFirstScreen={!navigation.canGoBack()}
+        /> 
+        <Header />
+        <Calendar
+          current={selectedDate}
+          onDayPress={(day) => setSelectedDate(day.dateString)}
+          style={styles.calendar}
+          theme={{
+            calendarBackground: 'transparent', // Fondo transparente para ver la imagen de fondo
+            textSectionTitleColor: 'black',
+            dayTextColor: 'black',
+            monthTextColor: 'black',
+            arrowColor: 'black',
+            selectedDayBackgroundColor: 'orange',
+            'stylesheet.calendar.header': {
+              week: {
+                marginTop: 5,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              },
             },
-          },
-        }}
-      /> 
-
-      <Text style={styles.selectedDate}>Selected Date: {selectedDate}</Text>
-
-      <TextInput
-        style={styles.input}
-        value={originQuery}
-        onChangeText={setOriginQuery}
-        placeholder="Origin"
-      />
-
-      <TextInput
-        style={styles.input}
-        value={destinationQuery}
-        onChangeText={setDestinationQuery}
-        placeholder="Destination"
-      />
-      <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-        <Icon name="search" size={30} color="white" />
-      </TouchableOpacity>
-
-      <StatusBar style="auto" />
-
-      <NavigationBar navigation={navigation} />
-      {/* <BookingButton navigation={navigation} /> */}
-    </View>
-
+          }}
+        /> 
+        <Text style={styles.selectedDate}>Selected Date: {selectedDate}</Text>
+        <TextInput
+          style={styles.input}
+          value={originQuery}
+          onChangeText={setOriginQuery}
+          placeholder="Origin"
+        />
+        <TextInput
+          style={styles.input}
+          value={destinationQuery}
+          onChangeText={setDestinationQuery}
+          placeholder="Destination"
+        />
+        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+          <Icon name="search" size={30} color="white" />
+        </TouchableOpacity>
+        <StatusBar style="auto" />
+        <NavigationBar navigation={navigation} />
+      </View>
+    </ImageBackground>
     </>  
-)
+  )
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-    },
-    calendar: {
-      width: windowWidth - 20,
-      marginBottom: 20,
-      backgroundColor: '#9c836e', 
-    },
-    selectedDate: {
-      fontSize: 18,
-      marginBottom: 10,
-    },
-    input: {
-      width: windowWidth - 20,
-      padding: 10,
-      marginBottom: 20,
-      borderWidth: 1,
-      borderColor: '#ccc',
-    },
-    searchButton: {
-      backgroundColor: 'black', // Color de fondo del botón de búsqueda
-      width: 50, // Ancho del botón
-      height: 50, // Alto del botón
-      borderRadius: 25, // Asegura que el botón sea un círculo
-      justifyContent: 'center', // Centra el icono verticalmente
-      alignItems: 'center', // Centra el icono horizontalmente
-    },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  backgroundImage: {
+    flex: 1,
+    width: '100%',
+  },
+  calendar: {
+    width: windowWidth - 20,
+    marginBottom: 20,
+  },
+  selectedDate: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  input: {
+    width: windowWidth - 20,
+    padding: 10,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)', // Fondo del campo de entrada translúcido
+  },
+  searchButton: {
+    backgroundColor: 'black',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
-  });
+export default HomeScreen;
+
+

@@ -8,6 +8,7 @@ import { BookingScreen } from '../screens/BookingScreen'
 import { FullBookingScreen } from '../screens/FullBooking'
 import LoginScreen from '../screens/LoginScreen'
 import { EditScreen } from '../screens/EditScreen'
+import { RegisterScreen } from '../screens/RegisterScreen'
 
 export const StackNavigator = () => {
 
@@ -28,6 +29,8 @@ export const StackNavigator = () => {
       <Stack.Screen name="Booking" component={BookingScreen} />
       <Stack.Screen name="FullBooking" component={FullBookingScreen} />
       <Stack.Screen name='Edit' component={EditScreen} />
+      <Stack.Screen name='Register' component={RegisterScreen} />
+
     </Stack.Navigator>
 
   )

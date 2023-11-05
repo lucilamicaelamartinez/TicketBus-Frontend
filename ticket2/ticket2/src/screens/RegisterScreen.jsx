@@ -5,23 +5,25 @@ import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 import { Picker } from '@react-native-picker/picker';
 
-export const EditScreen = ({ navigation }) => {
+export const RegisterScreen = ({ navigation }) => {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [genero, setGenero] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = () => {
-    console.log(`Nombre: ${nombre}, Apellido: ${apellido}, Género: ${genero}, Email: ${email}`);
-    // Agregar lógica para guardar los cambios aquí
+    console.log(`Nombre: ${nombre}, Apellido: ${apellido}, Género: ${genero}, Email: ${email}, Password: ${password}`);
+    // Agregar lógica para registrar al usuario aquí
+    navigation.navigate('Home');
   };
-
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-      justifyContent: 'flex-start',
+      justifyContent: 'flex-start', 
+      
     },
     header: {
       flex: 1,
@@ -39,6 +41,9 @@ export const EditScreen = ({ navigation }) => {
       fontSize: 18,
       width: '100%',
     },
+   
+
+
     formContainer: {
       borderWidth: 5,
       borderColor: 'gray',
@@ -48,7 +53,8 @@ export const EditScreen = ({ navigation }) => {
       padding: 20,
       width: '90%',
       backgroundColor: 'white',
-      marginTop: 20, // Separación del borde superior
+       //poneme el formContainer alejado de los bordes de la pantalla
+
     },
   });
 
@@ -90,13 +96,18 @@ export const EditScreen = ({ navigation }) => {
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
-
-        <AppButton textButton="Save Changes" color="#e38b3d" onPress={handleSubmit} />
+        <Text style={styles.label}>Password</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry   // Para ocultar el texto
+        />
+        <AppButton textButton="Register" color="#e38b3d" onPress={handleSubmit} />
       </View>
 
       <NavigationBar navigation={navigation} />
     </View>
   );
 };
-
-  
