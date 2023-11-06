@@ -15,60 +15,66 @@ export const ChooseTripScreen = ({ navigation, route }) => {
             '/vehicle'
           )
          const seats=resp.data
-         return seats 
+         console.log(seats, 'linea18')
+         setvehicle(seats) 
         }
-        const [vehicle, setvehicle] = useState()
+        const [vehicle, setvehicle] = useState([])
         useEffect(() => {
-          setvehicle= getVehicles()
+          getVehicles()
         
           
         }, [])
+        useEffect(() => {
+          console.log(vehicle, 'vehiculos')
+        
+             
+        }, [vehicle])
         
     // Datos aleatorios para las compañías de viaje
-    const tripOptions = [
-      {
-        company: 'Andesmar',
-        departureTime: '08:00 AM',
-        arrivalTime: '03:30 PM',
-        price: '$80',
-        availableSeats: vehicle,
-      },
-      {
-        company: 'Union',
-        departureTime: '10:30 AM',
-        arrivalTime: '05:45 PM',
-        price: '$75',
-        availableSeats: 15,
-      },
-      {
-        company: 'Iselin',
-        departureTime: '09:15 AM',
-        arrivalTime: '04:00 PM',
-        price: '$90',
-        availableSeats: 20,
-      },
-      {
-        company: 'Andesmar',
-        departureTime: '08:00 AM',
-        arrivalTime: '03:30 PM',
-        price: '$80',
-        availableSeats: 25,
-      },
-      {
-        company: 'Union',
-        departureTime: '10:30 AM',
-        arrivalTime: '05:45 PM',
-        price: '$75',
-        availableSeats: 15,
-      },
-      {
-        company: 'Iselin',
-        departureTime: '09:15 AM',
-        arrivalTime: '04:00 PM',
-        price: '$90',
-        availableSeats: 20,
-      },
-    ];
+    //const tripOptions = [
+    //   {
+    //     company: 'Andesmar',
+    //     departureTime: '08:00 AM',
+    //     arrivalTime: '03:30 PM',
+    //     price: '$80',
+    //     availableSeats: vehicle[0],
+    //   },
+    //   {
+    //     company: 'Union',
+    //     departureTime: '10:30 AM',
+    //     arrivalTime: '05:45 PM',
+    //     price: '$75',
+    //     availableSeats: 15,
+    //   },
+    //   {
+    //     company: 'Iselin',
+    //     departureTime: '09:15 AM',
+    //     arrivalTime: '04:00 PM',
+    //     price: '$90',
+    //     availableSeats: 20,
+    //   },
+    //   {
+    //     company: 'Andesmar',
+    //     departureTime: '08:00 AM',
+    //     arrivalTime: '03:30 PM',
+    //     price: '$80',
+    //     availableSeats: 25,
+    //   },
+    //   {
+    //     company: 'Union',
+    //     departureTime: '10:30 AM',
+    //     arrivalTime: '05:45 PM',
+    //     price: '$75',
+    //     availableSeats: 15,
+    //   },
+    //   {
+    //     company: 'Iselin',
+    //     departureTime: '09:15 AM',
+    //     arrivalTime: '04:00 PM',
+    //     price: '$90',
+    //     availableSeats: 20,
+    //   },
+    // ];
 
     // Función para manejar la selección de una compañía de viaje
   const handleSelectTrip = (trip) => {
@@ -104,15 +110,14 @@ export const ChooseTripScreen = ({ navigation, route }) => {
               </View>
             </View>
     
-            {tripOptions.map((trip, index) => (
+            {vehicle.map((v, index) => (
             <View style={styles.tripOption} key={index}>
-                <Text style={styles.companyText}>{trip.company}</Text>
-                <Text style={styles.timeText}>Departure: {trip.departureTime} - Arrival: {trip.arrivalTime}</Text>
-                <Text style={styles.priceText}>Price: {trip.price}</Text>
-                <Text style={styles.seatsText}> Seats Available: {trip.availableSeats} </Text>
+                <Text style={styles.companyText}>{v.brand}</Text>
+                <Text style={styles.timeText}>{v.model}</Text>
+                <Text style={styles.seatsText}> Seats Available: {v.capacity} </Text>
                 <AppButton textButton="Select"color="#e38b3d" onPress={() => handleSelectTrip(trip)}/>
             </View>
-            ))}
+             ))}
     
             <AppButton textButton="Back" color="#e38b3d" onPress={() => navigation.goBack()}/>
             <StatusBar style="auto" />
