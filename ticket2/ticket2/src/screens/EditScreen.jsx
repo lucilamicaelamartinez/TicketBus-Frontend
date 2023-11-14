@@ -6,14 +6,13 @@ import { AppButton } from '../components/AppButton';
 import { Picker } from '@react-native-picker/picker';
 
 export const EditScreen = ({ navigation }) => {
-  const [nombre, setNombre] = useState('');
-  const [apellido, setApellido] = useState('');
-  const [genero, setGenero] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
 
   const handleSubmit = () => {
-    console.log(`Nombre: ${nombre}, Apellido: ${apellido}, Género: ${genero}, Email: ${email}`);
-    // Agregar lógica para guardar los cambios aquí
+    console.log(`First Name: ${firstName}, Last Name: ${lastName}, Gender: ${gender}, Email: ${email}`);
   };
 
   const styles = StyleSheet.create({
@@ -48,7 +47,7 @@ export const EditScreen = ({ navigation }) => {
       padding: 20,
       width: '90%',
       backgroundColor: 'white',
-      marginTop: 20, // Separación del borde superior
+      marginTop: 20, 
     },
   });
 
@@ -60,28 +59,29 @@ export const EditScreen = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Enter your first name"
-          value={nombre}
-          onChangeText={(text) => setNombre(text)}
+          value={firstName}
+          onChangeText={(text) => setFirstName(text)}
         />
 
         <Text style={styles.label}>Last Name</Text>
         <TextInput
           style={styles.input}
           placeholder="Enter your last name"
-          value={apellido}
-          onChangeText={(text) => setApellido(text)}
+          value={lastName}
+          onChangeText={(text) => setLastName(text)}
         />
 
         <Text style={styles.label}>Gender</Text>
         <Picker
-          selectedValue={genero}
+          selectedValue={gender}
           style={styles.input}
-          onValueChange={(itemValue) => setGenero(itemValue)}
+          onValueChange={(itemValue) => setGender(itemValue)}
         >
           <Picker.Item label="Male" value="male" />
           <Picker.Item label="Female" value="female" />
           <Picker.Item label="Other" value="other" />
         </Picker>
+
 
         <Text style={styles.label}>Email</Text>
         <TextInput

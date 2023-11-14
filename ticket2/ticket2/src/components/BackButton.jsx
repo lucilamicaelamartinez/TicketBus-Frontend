@@ -13,9 +13,9 @@ const BackButton = ({ onPress, isFirstScreen }) => {
 const styles = StyleSheet.create({
   button: {
     position: 'absolute',
-    top: 20, // Ajusta la posición vertical según tus necesidades
-    left: 10, // Ajusta la posición horizontal según tus necesidades
-    zIndex: 1, // Asegura que el botón esté en la parte superior
+    top: 20, 
+    left: 10, 
+    zIndex: 1, 
   },
 });
 

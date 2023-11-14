@@ -5,7 +5,7 @@ import NavigationBar from '../components/NavigationBar';
 import { FontAwesome } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import login from '../assets/login.jpg';
-import userImage from '../assets/user.png'; // Importa la imagen user.png
+import userImage from '../assets/user.png'; 
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -17,8 +17,8 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const handleRegister = () => {
-    // Realiza la lógica de registro aquí
-    navigation.navigate('Register'); // Cambia 'Register' al nombre correcto de tu pantalla de registro
+    
+    navigation.navigate('Register');  
   };
 
   return (
@@ -28,7 +28,7 @@ const LoginScreen = ({ navigation }) => {
       <ImageBackground source={login} style={styles.imageBackground}>
         <View style={styles.overlay}>
           <View style={styles.contentContainer}>
-            <Image source={userImage} style={styles.userImage} />{/* Mueve la imagen de usuario más arriba */}
+            <Image source={userImage} style={styles.userImage} />
             <View style={styles.form}>
               <View style={styles.inputContainer}>
                 <FontAwesome name="envelope" style={styles.icon} />
@@ -59,7 +59,7 @@ const LoginScreen = ({ navigation }) => {
         </View>
       </ImageBackground>
 
-      <NavigationBar navigation={navigation} />
+    
     </View>
   );
 };

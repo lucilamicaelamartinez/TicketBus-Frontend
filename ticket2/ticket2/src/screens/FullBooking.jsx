@@ -11,12 +11,12 @@ export const FullBookingScreen = ({ navigation, route }) => {
 
   const handlePrint = () => {
     // Agrega la lógica para imprimir los datos de la reserva.
-    console.log('Imprimir datos de la reserva');
+    console.log('Print');
   };
 
   const handleSendEmail = () => {
-    // Agrega la lógica para enviar los datos de la reserva por correo electrónico en formato PDF.
-    console.log('Enviar datos de la reserva por correo electrónico en PDF');
+    
+    console.log('Send email');
   };
 
   return (
@@ -82,9 +82,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonContainer: {
-    flexDirection: 'row', // Coloca los botones en la misma línea
-    justifyContent: 'center', // Centra los botones horizontalmente
-    marginTop: 20, // Espaciado superior
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    marginTop: 20, 
   },
   button: {
     flexDirection: 'row',
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   separator: {
-    width: 10, // Espaciado entre los botones
+    width: 10, // 
   },
 });
 
