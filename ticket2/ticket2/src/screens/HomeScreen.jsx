@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, Dimensions, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TextInput, TouchableOpacity, ImageBackground, SafeAreaView } from 'react-native';
 import NavigationBar from '../components/NavigationBar';
 import { Header } from '../components/Header';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
@@ -65,18 +65,6 @@ export const HomeScreen = ({navigation}) => {
   const [filteredOriginCities, setFilteredOriginCities] = useState([]);
   const [filteredDestinationCities, setFilteredDestinationCities] = useState([]);
 
-  // useEffect(() => {
-  //   // Obtain the list of cities in Argentina from the OpenWeatherMap API
-  //   TicketBusApi
-  //     .get('/city')
-  //     .then((response) => {
-  //       setCitiesData(citiesData);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching the list of cities:', error);
-  //     });
-  // }, []);
-
   useEffect(() => {
     // Filter origin and destination cities as the user types
     const filteredOrigin = citiesData.filter((city) =>
@@ -99,14 +87,12 @@ export const HomeScreen = ({navigation}) => {
   };
 
   return (
-    <>
-      {/* <View style={styles.container}> */}
-    <ScrollView contentContainerStyle={styles.container}>
-    {/* <KeyboardAvoidingView> */}
-    {/* <ImageBackground source={require('../assets/login.jpg')} style={styles.backgroundImage}> */}
-        <BackButton onPress={() => navigation.goBack()} 
-          isFirstScreen={!navigation.canGoBack()}
-        /> 
+    <SafeAreaView style={styles.container}>
+    <ImageBackground source={require('../assets/login.jpg')} style={styles.backgroundImage}>
+    <ScrollView style={{ flex : 1 }}>
+      <BackButton onPress={() => navigation.goBack()}
+        isFirstScreen={!navigation.canGoBack()}
+      />
         <Header />
         <Calendar
           current={selectedDate}
@@ -127,7 +113,8 @@ export const HomeScreen = ({navigation}) => {
               },
             },
           }}
-        /> 
+        />
+        <View style={styles.searchContainer}>
         <Text style={styles.selectedDate}>Selected Date: {selectedDate}</Text>
         <TextInput
           style={styles.input}
@@ -141,19 +128,21 @@ export const HomeScreen = ({navigation}) => {
           onChangeText={setDestinationQuery}
           placeholder="Destination"
         />
-
-        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-
+        <View style={styles.searchButtonContainer}>
+        <TouchableOpacity style={styles.searchButton}  onPress={handleSearch}>
           <Icon name="search" size={30} color="white" />
         </TouchableOpacity>
-        
-        <StatusBar style="auto" />
+        <Text style={styles.searchText}>Search</Text>
+        </View>
+        </View>
+
+        <View style={styles.navContainer}>
+        <StatusBar/>
         <NavigationBar navigation={navigation} />
-    {/* </ImageBackground> */}
-    {/* </KeyboardAvoidingView> */}
+        </View>
     </ScrollView>
-      {/* </View> */}
-    </>  
+    </ImageBackground>
+      </SafeAreaView>
   )
 }
 
@@ -161,7 +150,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    // justifyContent: 'flex-end',
+  },
+  searchContainer: {
+    marginHorizontal: 10,
+    alignItems: 'center'
+  },
+  navContainer: {
+    alignContent: 'flex-end'
   },
   backgroundImage: {
     flex: 1,
@@ -169,27 +165,39 @@ const styles = StyleSheet.create({
   },
   calendar: {
     width: windowWidth - 20,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   selectedDate: {
     fontSize: 18,
     marginBottom: 10,
   },
   input: {
-    width: windowWidth - 20,
-    padding: 10,
+    fontSize: 20,
+    width: '100%',
+    textAlign: 'center',
+    height: 50,
     marginBottom: 20,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.5)', // Fondo del campo de entrada translúcido
   },
-  searchButton: {
+  searchButtonContainer: {
     backgroundColor: 'black',
-    width: 50,
-    height: 50,
     borderRadius: 25,
-    justifyContent: 'center',
+    width: 120,
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-evenly',
+    marginHorizontal: 20,
+    marginBottom: 10
   },
+  searchButton: {
+    height: 50,
+    justifyContent: 'center',
+  },
+  searchText: {
+    color: 'white',
+    fontSize: 20
+  }
 });
 
 export default HomeScreen;

@@ -6,9 +6,6 @@ import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BackButton from '../components/BackButton';
-// import jwt from 'jsonwebtoken';
-import { Constants } from 'expo-constants';
-import jwtDecode from 'jwt-decode';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Buffer } from 'buffer';
 import TicketBusApi from "../api/TicketBus";
@@ -43,8 +40,6 @@ export const ProfileScreen = ( { navigation } ) => {
       const objeto = JSON.parse(decodifiedToken);
       const user = objeto.sub;
       console.log("USERNAME: ", user);
-      // const decodedToken = jwtDecode(token);
-      // const username = decodedToken.sub;
       const response = await TicketBusApi.get(`/user/username/${user}`, {
         headers: {
           'Authorization': `Bearer ${token}`
