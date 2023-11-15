@@ -15,7 +15,7 @@ export const ProfileScreen = ( { navigation } ) => {
     BackHandler.exitApp();
   };
 
-
+  const [userId, setUserId] = useState("");
   const [name, setname] = useState("")
   const [lastname, setlastname] = useState("")
   const [email, setemail] = useState("")
@@ -50,6 +50,7 @@ export const ProfileScreen = ( { navigation } ) => {
       setlastname(response.data.lastname);
       setemail(response.data.email);
       setusername(response.data.username);
+      setUserId(response.data.id);
     } catch (error) {
       console.log(error);
     }
@@ -58,6 +59,27 @@ export const ProfileScreen = ( { navigation } ) => {
   useEffect(() => {
     handleLoadUser();
   }, [])
+
+  const handleEditProfile = (userId, name, lastname, email, username) => {
+
+
+
+    navigation.navigate('Edit', {
+      userId: userId,
+      name: name,
+      lastname: lastname,
+      email: email,
+      username: username
+    });
+
+    // navigation.navigate('Edit', {
+    //   user: {
+    //     name: "Gaston",
+    //     lastname: "Perez",
+    //   }
+    // });
+    // navigation.navigate('Edit')
+  }
   
   return (
     
@@ -106,11 +128,12 @@ export const ProfileScreen = ( { navigation } ) => {
       >
         <Icon name="location" size={20} color="white" style={{ marginRight: 10 }} />
       </AppButton>
+
       <View style={styles.buttonSeparator} />
         <AppButton 
-        textButton="Edit" 
+        textButton="Edit Profile" 
         color="#e38b3d"
-        onPress={() => navigation.navigate('Edit')}
+        onPress={() => handleEditProfile(userId, name, lastname, email, username)}
  
         >
           <Icon name="pencil" size={20} color="white" style={{ marginRight: 10 }} />

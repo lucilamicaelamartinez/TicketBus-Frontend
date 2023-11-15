@@ -6,7 +6,12 @@ import NavigationBar from '../components/NavigationBar';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import BackButton from '../components/BackButton';
 
-export const LastReservations = ({ navigation }) => {
+export const LastReservations = ({ navigation, route }) => {
+
+
+  const { destination, origin, company, vehicle, departureTime, arrivalTime, price, date } = route.params.trip;
+
+
   return (
     <>
       <Header />
@@ -16,13 +21,16 @@ export const LastReservations = ({ navigation }) => {
        
         <View style={styles.mainContainer}>
           <View style={styles.reservationContainer}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>My Last Reservations</Text>
             <ReservationCard
-              date="2023-10-24"
-              origin="New York"
-              destination="Los Angeles"
-              company="Travel Co."
+              date={date}
+              origin={origin}
+              destination={destination}
+              company={company}
+              arrival_time={arrivalTime}
+              departure_time={departureTime}
             />
-            <ReservationCard
+            {/* <ReservationCard
               date="2023-10-25"
               origin="San Francisco"
               destination="Chicago"
@@ -33,7 +41,7 @@ export const LastReservations = ({ navigation }) => {
               origin="Miami"
               destination="Orlando"
               company="Vacation Express"
-            />
+            /> */}
           </View>
         </View>
         <StatusBar style="auto" />
@@ -43,7 +51,7 @@ export const LastReservations = ({ navigation }) => {
   );
 };
 
-const ReservationCard = ({ date, origin, destination, company }) => {
+const ReservationCard = ({ date, origin, destination, company, arrival_time, departure_time }) => {
   return (
     <View style={styles.card}>
       <View style={styles.iconContainer}>
@@ -54,6 +62,8 @@ const ReservationCard = ({ date, origin, destination, company }) => {
       <Text style={styles.label}>Origin: {origin}</Text>
       <Text style={styles.label}>Destination: {destination}</Text>
       <Text style={styles.label}>Company: {company}</Text>
+      <Text style={styles.label}>Departure: {departure_time}</Text>
+      <Text style={styles.label}>Arrival: {arrival_time}</Text>
       </View>
     </View>
   );

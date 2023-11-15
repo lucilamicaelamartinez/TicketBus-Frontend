@@ -55,16 +55,25 @@ export const ChooseTripScreen = ({ navigation, route }) => {
 
      const handleSelectTrip = (trip) => {
       
-      navigation.navigate('Booking', {
-        origin: origin,
-        destination: destination,
-        selectedDate: selectedDate, 
-        company: trip.company,
-        seat: trip.availableSeats,  
-        departureTime: trip.departureTime,
-        arrivalTime: trip.arrivalTime,
-        price: trip.price,
-      });
+      // navigation.navigate('Booking', {
+      //   // origin: origin,
+      //   // destination: destination,
+      //   // selectedDate: trip.date, 
+      //   // company: trip.company,
+      //   // seat: trip.capacity,  
+      //   // departureTime: trip.departure_time,
+      //   // arrivalTime: trip.arrival_time,
+      //   // price: trip.price,
+      //   trip,
+      //   origin,
+      //   destination
+      // });
+
+      trip.destination = destination
+      trip.origin = origin
+
+      navigation.navigate('Booking', {trip})
+
     };
     
       return (

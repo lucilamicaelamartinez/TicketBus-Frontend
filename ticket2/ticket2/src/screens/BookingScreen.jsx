@@ -8,10 +8,18 @@ import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 import BackButton from '../components/BackButton';
 import Icon from 'react-native-vector-icons/Ionicons'; 
+import TicketBusApi from '../api/TicketBus';
 
 export const BookingScreen = ({ navigation, route }) => {
-  const { origin, destination, company, seat, departureTime, arrivalTime, price, selectedDate} = route.params;
 
+  console.log("ESTE ES EL VIAJE QUE LLEGA A BOOKING", route.params)
+
+  const { destination, origin, company, vehicle, departure_time, arrival_time, price, date } = route.params.trip;
+
+  // console.log("ESTE ES EL VIAJE QUE LLEGA COMPANY", route.params.trip.vehicle.capacity)
+  console.log("ESTE ES EL VIAJE QUE LLEGA COMPANY", company)
+
+  
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [gender, setGender] = useState('');
@@ -27,14 +35,15 @@ export const BookingScreen = ({ navigation, route }) => {
       tripData: {
         origin: origin,
         destination: destination,
-        date: selectedDate, // Reemplaza con la fecha que corresponda
-        departureTime: departureTime, // Obtén la hora de salida de los parámetros
-        arrivalTime: arrivalTime, // Obtén la hora de llegada de los parámetros
+        date: date, // Reemplaza con la fecha que corresponda
+        departureTime: departure_time, // Obtén la hora de salida de los parámetros
+        arrivalTime: arrival_time, // Obtén la hora de llegada de los parámetros
         price: price,
-        selectedTrip: {
-          company: company,
-          // Agrega otros datos según sea necesario
-        },
+        // selectedTrip: {
+        //   company: company.name,
+        //   // Agrega otros datos según sea necesario
+        // },
+        company: company.name
       },
       userData: {
         fullName: `${firstName} ${lastName}`,
@@ -53,11 +62,12 @@ export const BookingScreen = ({ navigation, route }) => {
         <View style={styles.summaryContainer}>
           <Text style={styles.summaryText}>Origin: {origin}</Text>
           <Text style={styles.summaryText}>Destination: {destination}</Text>
-          <Text style={styles.summaryText}>Company: {company}</Text>
-          <Text style={styles.summaryText}>Seat: {seat}</Text>
-          <Text style={styles.summaryText}>Departure: {departureTime}</Text>
-          <Text style={styles.summaryText}>Arrival: {arrivalTime}</Text>
+          <Text style={styles.summaryText}>Company: {company.name}</Text>
+          <Text style={styles.summaryText}>Seat: {vehicle.capacity}</Text>
+          <Text style={styles.summaryText}>Departure: {departure_time}</Text>
+          <Text style={styles.summaryText}>Arrival: {arrival_time}</Text>
           <Text style={styles.summaryText}>Price: {price}</Text>
+          <Text style={styles.summaryText}>Date: {date}</Text>
         </View>
 
         <Text style={styles.label}>First Name</Text>
