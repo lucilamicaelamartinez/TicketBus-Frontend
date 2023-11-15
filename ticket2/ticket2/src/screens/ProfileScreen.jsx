@@ -1,16 +1,60 @@
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StatusBar, StyleSheet, Text, View, BackHandler } from 'react-native';
 import { Header } from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BackButton from '../components/BackButton';
+// import jwt from 'jsonwebtoken';
+import { Constants } from 'expo-constants';
+import jwtDecode from 'jwt-decode';
+import AsyncStorage from '@react-native-community/async-storage';
+import { Buffer } from 'buffer';
+import TicketBusApi from "../api/TicketBus";
 
 export const ProfileScreen = ( { navigation } ) => {
   const handleExitPress = () => {
     BackHandler.exitApp();
   };
+
+
+  const [name, setname] = useState("")
+  const [lastname, setlastname] = useState("")
+  const [email, setemail] = useState("")
+  const [username, setusername] = useState("")
+
+  handleLoadUser = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      console.log("TOKEN: ", token);
+      const partes = token.split('.');
+      const datosToken = (partes[1]);
+      const decodifiedToken = Buffer.from(datosToken, 'base64').toString('utf-8');
+      const objeto = JSON.parse(decodifiedToken);
+      const user = objeto.sub;
+      console.log("USERNAME: ", user);
+      // const decodedToken = jwtDecode(token);
+      // const username = decodedToken.sub;
+      const response = await TicketBusApi.get(`/user/username/${user}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      console.log(response.data);
+      setname(response.data.name);
+      setlastname(response.data.lastname);
+      setemail(response.data.email);
+      setusername(response.data.username);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    handleLoadUser();
+  }, [])
+  
   return (
     
     <>
@@ -26,15 +70,15 @@ export const ProfileScreen = ( { navigation } ) => {
 
               <View style={styles.initialsName}>
 
-                  <Text style={styles.initialsLetters}>LM</Text>
+                  <Text style={styles.initialsLetters}>{name[0]}{lastname[0]}</Text>
 
               </View>
 
               <View>
                   
-                    <Text style={styles.dataTexts}>Lucila Martinez</Text>
+                    <Text style={styles.dataTexts}>Name: {name} {lastname}</Text>
                     <Text style={styles.dataTexts}>44000000</Text>
-                    <Text style={styles.dataTexts}>lucila@gmail.com</Text>
+                    <Text style={styles.dataTexts}>Email: {email}</Text>
 
 
               </View>
@@ -44,7 +88,7 @@ export const ProfileScreen = ( { navigation } ) => {
 
           <View style={styles.dataContainer}>
 
-              <Text style={{fontSize: 15}}>Lorem323ipsumd3232olor</Text>
+              <Text style={{fontSize: 15}}>Username: {username}</Text>
 
           </View>
 

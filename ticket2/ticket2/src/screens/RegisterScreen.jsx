@@ -4,18 +4,40 @@ import { Header } from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 import { Picker } from '@react-native-picker/picker';
+import TicketBusApi from "../api/TicketBus";
+import { ScrollView } from 'react-native-gesture-handler';
 
 export const RegisterScreen = ({ navigation }) => {
+  const [username, setUsername] = useState('')
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+
   const handleSubmit = () => {
     console.log(`First Name: ${firstName}, Last Name: ${lastName}, Gender: ${gender}, Email: ${email}, Password: ${password}`);
     
-    navigation.navigate('Home');
+
+    const data = {
+      username: username,
+      firstname: firstName,
+      lastname: lastName,
+      gender: gender,
+      email: email,
+      password: password
+    }
+
+    TicketBusApi.post('/auth/register', data)
+    .then(response => {
+      console.log(response.data); // Aquí puedes manejar la respuesta del backend
+      navigation.navigate('Home');
+    })
+    .catch(error => {
+      console.log(error); // Aquí puedes manejar el error de la solicitud
+    });
+    // navigation.navigate('Home');
   };
   const styles = StyleSheet.create({
     container: {
@@ -54,9 +76,17 @@ export const RegisterScreen = ({ navigation }) => {
   });
 
   return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
+    <ScrollView contentContainerStyle={{flexGrow:1,justifyContent:"center",alignItems: "center"}}>
       <Header style={styles.header} />
       <View style={styles.formContainer}>
+      <Text style={styles.label}>Username</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter a username"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+        />
         <Text style={styles.label}>First Name</Text>
         <TextInput
           style={styles.input}
@@ -101,6 +131,7 @@ export const RegisterScreen = ({ navigation }) => {
         />
         <AppButton textButton="Register" color="#e38b3d" onPress={handleSubmit} />
       </View>
-    </View>
+      </ScrollView>
+    // </View>
   );
 };

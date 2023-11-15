@@ -8,6 +8,7 @@ import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BackButton from '../components/BackButton';
+import TicketBusApi from '../api/TicketBus';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -64,13 +65,10 @@ export const HomeScreen = ({navigation}) => {
 
   useEffect(() => {
     // Obtain the list of cities in Argentina from the OpenWeatherMap API
-    axios
-      .get(
-        'https://api.openweathermap.org/data/2.5/box/city?bbox=-75,-55,-21,-54,10&appid=b5067a51376c8a1dbd948e40aef80be3'
-      )
+    TicketBusApi
+      .get('/city')
       .then((response) => {
-        const cities = response.data.list.map((city) => city.name);
-        setCitiesData(cities);
+        setCitiesData(citiesData);
       })
       .catch((error) => {
         console.error('Error fetching the list of cities:', error);

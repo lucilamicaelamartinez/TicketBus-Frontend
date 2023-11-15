@@ -6,18 +6,32 @@ import { FontAwesome } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import login from '../assets/login.jpg';
 import userImage from '../assets/user.png'; 
-
+import axios from 'axios';
+import TicketBusApi from "../api/TicketBus";
+import AsyncStorage from '@react-native-community/async-storage';
 const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log(email, password);
-    navigation.navigate('Home');
+    const data = {
+      username: username,
+      password: password
+    };
+
+    TicketBusApi.post('/auth/login', data)
+      .then(response => {
+        console.log(response.data); // Aquí puedes manejar la respuesta del backend
+        const token = response.data.token;
+        AsyncStorage.setItem('token', token);
+        navigation.navigate('Home');
+      })
+      .catch(error => {
+        console.log(error); // Aquí puedes manejar el error de la solicitud
+      });
   };
 
   const handleRegister = () => {
-    
     navigation.navigate('Register');  
   };
 
@@ -34,9 +48,9 @@ const LoginScreen = ({ navigation }) => {
                 <FontAwesome name="envelope" style={styles.icon} />
                 <TextInput
                   style={styles.input}
-                  placeholder="Email"
-                  value={email}
-                  onChangeText={setEmail}
+                  placeholder="Username"
+                  value={username}
+                  onChangeText={setUsername}
                 />
               </View>
               <View style={styles.inputContainer}>
@@ -120,5 +134,6 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
+
 
 
