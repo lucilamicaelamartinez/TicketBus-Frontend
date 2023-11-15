@@ -24,9 +24,18 @@ export const ProfileScreen = ( { navigation } ) => {
   const [email, setemail] = useState("")
   const [username, setusername] = useState("")
 
-  handleLoadUser = async () => {
+  getToken = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
+      console.log("TOKEN DEL PROFILE: ", token);
+      return token;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  handleLoadUser = async () => {
+    try {
+      const token = await getToken();
       console.log("TOKEN: ", token);
       const partes = token.split('.');
       const datosToken = (partes[1]);
@@ -77,8 +86,7 @@ export const ProfileScreen = ( { navigation } ) => {
               <View>
                   
                     <Text style={styles.dataTexts}>Name: {name} {lastname}</Text>
-                    <Text style={styles.dataTexts}>44000000</Text>
-                    <Text style={styles.dataTexts}>Email: {email}</Text>
+                    <Text style={styles.dataTexts}>{email}</Text>
 
 
               </View>
@@ -88,7 +96,7 @@ export const ProfileScreen = ( { navigation } ) => {
 
           <View style={styles.dataContainer}>
 
-              <Text style={{fontSize: 15}}>Username: {username}</Text>
+              <Text style={{fontSize: 14}}>Username: {username}</Text>
 
           </View>
 
@@ -139,21 +147,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'top',
+    // que el cuadro sea mas chico que la pantalla
   },
   mainContainer: {
     // flex: 1,
     backgroundColor: '#cfbeb0',
     justifyContent: 'top',
-    // poneme un border de un pixel
     borderWidth: 1,
     padding: 20,
     margin: 20,
-    // poneme la letra mas grande
+    with: '90 %'
   },
   namesContainers: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    width: '85%',
   },
   dataContainer: {
     flexDirection: 'row',
@@ -176,7 +185,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   dataTexts: {
-    fontSize: 20,
+    fontSize: 15,
   },
   buttonsContainer: {
     flexDirection: 'column',  // Cambia la dirección del diseño a column

@@ -13,23 +13,28 @@ const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async() => {
     const data = {
       username: username,
       password: password
     };
 
-    TicketBusApi.post('/auth/login', data)
-      .then(response => {
-        console.log(response.data); // Aquí puedes manejar la respuesta del backend
-        const token = response.data.token;
-        AsyncStorage.setItem('token', token);
-        navigation.navigate('Home');
-      })
-      .catch(error => {
-        console.log(error); // Aquí puedes manejar el error de la solicitud
-      });
-  };
+    try {
+      const response = await TicketBusApi.post('/auth/login', data);
+      console.log("PRIMER CONSOLE RESPONSE: ",response);
+      const token = response.data.token;
+      console.log("SEGUNDO CONSOLE TOKEN: ",token); 
+   
+      AsyncStorage.setItem('token', token);
+   
+      const tokenAsync = await AsyncStorage.getItem('token');
+      console.log("TOKEN ASYNC: ", tokenAsync);
+   
+      navigation.navigate('Home');
+    } catch (error) {
+      console.log(error); 
+    }
+ };
 
   const handleRegister = () => {
     navigation.navigate('Register');  

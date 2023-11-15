@@ -4,6 +4,7 @@ import { Header } from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 import { Picker } from '@react-native-picker/picker';
+import TicketBusApi from "../api/TicketBus";
 
 export const EditScreen = ({ navigation }) => {
   const [firstName, setFirstName] = useState('');
@@ -12,8 +13,22 @@ export const EditScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
 
   const handleSubmit = () => {
-    console.log(`First Name: ${firstName}, Last Name: ${lastName}, Gender: ${gender}, Email: ${email}`);
-  };
+    // Crea un objeto con los datos del usuario
+    const userData = {
+      firstName,
+      lastName,
+      gender,
+      email,
+    };
+    TicketBusApi.put('/user/${id}', userData)
+    .then(response => {
+      console.log(response.data);
+      Alert.alert('User data updated successfully');
+    })
+    .catch(error => {
+      console.log(error);
+      Alert.alert('Failed to update user data');
+    });
 
   const styles = StyleSheet.create({
     container: {
@@ -98,5 +113,4 @@ export const EditScreen = ({ navigation }) => {
     </View>
   );
 };
-
-  
+}  

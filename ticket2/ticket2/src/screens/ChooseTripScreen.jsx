@@ -8,69 +8,50 @@ import { ScrollView } from 'react-native-gesture-handler';
 import TicketBusApi from '../api/TicketBus';
 
 export const ChooseTripScreen = ({ navigation, route }) => {
-    
+    const [trips, setTrips] = useState([]);
+    // const [company, setCompany] = useState("");
+
     const { origin, destination, selectedDate } = route.params;
-       // const getVehicles=async()=>{
-         // const resp = await TicketBusApi.get(
-           // '/vehicle'
-          //)
-         //const seats=resp.data
-         //console.log(seats, 'linea18')
-         //setvehicle(seats) 
-        //}
-        //const [vehicle, setvehicle] = useState([])
-        //useEffect(() => {
-          //getVehicles()  
-       // }, [])
-        //useEffect(() => {
-          //console.log(vehicle, 'vehiculos')
-        //}, [vehicle])
+      const getVehicles=async()=>{
+        const resp = await TicketBusApi.get(
+          '/trip/filter',
+            {
+              params: {
+                origin: origin,
+                destination: destination,
+                date: selectedDate,
+              },
+            }
+          )
+          // console.log("ACA EL RESPONSE TRIPS",resp.data)
+          
+          const data = resp.data
+          // data.vehicle.company = JSON.stringify(data.vehicle.company)
+
+          mapTrips = data.map((trip) => {
+            trip.company = JSON.stringify(trip.vehicle.company)
+            trip.company = JSON.parse(trip.company)
+            return trip
+          })
+
+          setTrips(mapTrips)
+          // setCompany(JSON.stringify(data[0].vehicle.company.name))
+
+
+          // console.log("ACA EL RESPONSE company",JSON.stringify(trips.vehicle.company))
+          // setCompany(JSON.stringify(resp.data.vehicle.company))
+          // setCompany(resp.data.vehicle.company)
+
+        // useEffect(() => {
+        //   setTrips(resp.data)
+        // }, [resp.data])
+        // console.log("ACA EL RESPONSE TRIPS",resp.data)
+        }
         
-    
-    const tripOptions = [
-       {
-         company: 'Andesmar',
-         departureTime: '08:00 AM',
-         arrivalTime: '03:30 PM',
-         price: '$80',
-         availableSeats: 13,
-       },
-       {
-         company: 'Union',
-         departureTime: '10:30 AM',
-         arrivalTime: '05:45 PM',
-         price: '$75',
-         availableSeats: 15,
-       },
-       {
-         company: 'Iselin',
-         departureTime: '09:15 AM',
-         arrivalTime: '04:00 PM',
-        price: '$90',
-        availableSeats: 20,
-       },
-      {
-         company: 'Andesmar',
-         departureTime: '08:00 AM',
-           arrivalTime: '03:30 PM',
-         price: '$80',
-         availableSeats: 25,
-       },
-       {
-         company: 'Union',
-         departureTime: '10:30 AM',
-         arrivalTime: '05:45 PM',
-         price: '$75',
-         availableSeats: 15,
-       },
-       {
-         company: 'Iselin',
-         departureTime: '09:15 AM',
-         arrivalTime: '04:00 PM',
-         price: '$90',
-         availableSeats: 20,
-       },
-     ];
+        useEffect(() => {
+          getVehicles()
+        }, [])
+        
 
      const handleSelectTrip = (trip) => {
       
@@ -105,12 +86,18 @@ export const ChooseTripScreen = ({ navigation, route }) => {
                 </View>
               </View>
       
-              {tripOptions.map((trip, index) => (
+              {trips.map((trip, index) => (
               <View style={styles.tripOption} key={index}>
-                  <Text style={styles.companyText}>{trip.company}</Text>
-                  <Text style={styles.timeText}>Departure: {trip.departureTime} - Arrival: {trip.arrivalTime}</Text>
+                  {/* <Text style={styles.companyText}>{trip.company}</Text> */}
+                  <Text style={styles.timeText}>Departure: {trip.departure_time}</Text>
+                  <Text style={styles.timeText}>Arrival: {trip.arrival_time}</Text>
                   <Text style={styles.priceText}>Price: {trip.price}</Text>
-                  <Text style={styles.seatsText}> Seats Available: {trip.availableSeats} </Text>
+                  <Text style={styles.seatsText}> Seats Available: {trip.vehicle.capacity} </Text>
+                  {/* {trip.vehicle.map(( company ) => (
+                    <Text style={styles.seatsText}> Company: {company.name} </Text>
+                  ))} */}
+                  <Text style={styles.seatsText}> Company: {trip.company.name} </Text>
+                  {/* <Text style={styles.seatsText}> Company: </Text> */}
                   <AppButton textButton="Select"color="#e38b3d" onPress={() => handleSelectTrip(trip)}/>
               </View>
               ))}

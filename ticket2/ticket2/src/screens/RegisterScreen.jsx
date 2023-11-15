@@ -6,6 +6,7 @@ import { AppButton } from '../components/AppButton';
 import { Picker } from '@react-native-picker/picker';
 import TicketBusApi from "../api/TicketBus";
 import { ScrollView } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const RegisterScreen = ({ navigation }) => {
   const [username, setUsername] = useState('')
@@ -28,16 +29,17 @@ export const RegisterScreen = ({ navigation }) => {
       email: email,
       password: password
     }
+    console.log(data);
 
     TicketBusApi.post('/auth/register', data)
     .then(response => {
-      console.log(response.data); // Aquí puedes manejar la respuesta del backend
-      navigation.navigate('Home');
+     console.log("DATA DEL REGISTER: ",response.data); // Aquí puedes manejar la respuesta del backend
+     AsyncStorage.setItem('token', response.data.token); // Guarda el token en AsyncStorage
+     navigation.navigate('Home');
     })
     .catch(error => {
-      console.log(error); // Aquí puedes manejar el error de la solicitud
+     console.log("ACA EL ERROR",error); // Aquí puedes manejar el error de la solicitud
     });
-    // navigation.navigate('Home');
   };
   const styles = StyleSheet.create({
     container: {

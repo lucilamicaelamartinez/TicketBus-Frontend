@@ -9,6 +9,8 @@ import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BackButton from '../components/BackButton';
 import TicketBusApi from '../api/TicketBus';
+import AsyncStorage from '@react-native-community/async-storage';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -63,17 +65,17 @@ export const HomeScreen = ({navigation}) => {
   const [filteredOriginCities, setFilteredOriginCities] = useState([]);
   const [filteredDestinationCities, setFilteredDestinationCities] = useState([]);
 
-  useEffect(() => {
-    // Obtain the list of cities in Argentina from the OpenWeatherMap API
-    TicketBusApi
-      .get('/city')
-      .then((response) => {
-        setCitiesData(citiesData);
-      })
-      .catch((error) => {
-        console.error('Error fetching the list of cities:', error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // Obtain the list of cities in Argentina from the OpenWeatherMap API
+  //   TicketBusApi
+  //     .get('/city')
+  //     .then((response) => {
+  //       setCitiesData(citiesData);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching the list of cities:', error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     // Filter origin and destination cities as the user types
@@ -98,8 +100,10 @@ export const HomeScreen = ({navigation}) => {
 
   return (
     <>
-    <ImageBackground source={require('../assets/login.jpg')} style={styles.backgroundImage}>
-      <View style={styles.container}>
+      {/* <View style={styles.container}> */}
+    <ScrollView contentContainerStyle={styles.container}>
+    {/* <KeyboardAvoidingView> */}
+    {/* <ImageBackground source={require('../assets/login.jpg')} style={styles.backgroundImage}> */}
         <BackButton onPress={() => navigation.goBack()} 
           isFirstScreen={!navigation.canGoBack()}
         /> 
@@ -137,13 +141,18 @@ export const HomeScreen = ({navigation}) => {
           onChangeText={setDestinationQuery}
           placeholder="Destination"
         />
+
         <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+
           <Icon name="search" size={30} color="white" />
         </TouchableOpacity>
+        
         <StatusBar style="auto" />
         <NavigationBar navigation={navigation} />
-      </View>
-    </ImageBackground>
+    {/* </ImageBackground> */}
+    {/* </KeyboardAvoidingView> */}
+    </ScrollView>
+      {/* </View> */}
     </>  
   )
 }
