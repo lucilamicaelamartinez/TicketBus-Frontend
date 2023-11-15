@@ -1,34 +1,46 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, TextInput } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Text, TextInput, Alert } from 'react-native';
 import { Header } from '../components/Header';
 import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 import { Picker } from '@react-native-picker/picker';
 import TicketBusApi from "../api/TicketBus";
 
-export const EditScreen = ({ navigation }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [gender, setGender] = useState('');
-  const [email, setEmail] = useState('');
+export const EditScreen = ({ navigation, route }) => {
+
+  console.log("ESTE ES EL USER QUE LLEGA A EDITAR", route.params)
+  const {userId, name, lastname, email, username} = route.params;
+
+  const [firstNameToPut, setFirstName] = useState('');
+  const [lastNameToPut, setLastName] = useState('');
+  const [genderToPut, setGender] = useState('');
+  const [emailToPut, setEmail] = useState('');
+
+  useEffect(() => {
+    setFirstName(name);
+    setLastName(lastname);
+    setEmail(email);
+  }, [])
+  
 
   const handleSubmit = () => {
     // Crea un objeto con los datos del usuario
     const userData = {
-      firstName,
-      lastName,
-      gender,
-      email,
+      name: firstNameToPut,
+	    lastname: lastNameToPut,
+      email: emailToPut
     };
-    TicketBusApi.put('/user/${id}', userData)
+    console.log(userData, "USER DATAAA");
+    TicketBusApi.put(`/user/${userId}`, userData)
     .then(response => {
       console.log(response.data);
-      Alert.alert('User data updated successfully');
+      Alert.alert('User data updated successfully', response.data);
     })
     .catch(error => {
       console.log(error);
       Alert.alert('Failed to update user data');
     });
+  };
 
   const styles = StyleSheet.create({
     container: {
@@ -67,6 +79,7 @@ export const EditScreen = ({ navigation }) => {
   });
 
   return (
+
     <View style={styles.container}>
       <Header style={styles.header} />
       <View style={styles.formContainer}>
@@ -74,7 +87,7 @@ export const EditScreen = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Enter your first name"
-          value={firstName}
+          value={firstNameToPut}
           onChangeText={(text) => setFirstName(text)}
         />
 
@@ -82,13 +95,13 @@ export const EditScreen = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Enter your last name"
-          value={lastName}
+          value={lastNameToPut}
           onChangeText={(text) => setLastName(text)}
         />
 
         <Text style={styles.label}>Gender</Text>
         <Picker
-          selectedValue={gender}
+          selectedValue={genderToPut}
           style={styles.input}
           onValueChange={(itemValue) => setGender(itemValue)}
         >
@@ -102,7 +115,7 @@ export const EditScreen = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Enter your email"
-          value={email}
+          value={emailToPut}
           onChangeText={(text) => setEmail(text)}
         />
 
@@ -111,6 +124,6 @@ export const EditScreen = ({ navigation }) => {
 
       <NavigationBar navigation={navigation} />
     </View>
+
   );
 };
-}  

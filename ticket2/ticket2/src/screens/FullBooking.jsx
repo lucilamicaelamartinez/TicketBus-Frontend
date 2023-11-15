@@ -5,8 +5,10 @@ import NavigationBar from '../components/NavigationBar';
 import { AppButton } from '../components/AppButton';
 import { FontAwesome } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const FullBookingScreen = ({ navigation, route }) => {
+
   const { tripData, userData } = route.params;
 
   const handlePrint = () => {
@@ -19,6 +21,18 @@ export const FullBookingScreen = ({ navigation, route }) => {
     console.log('Send email');
   };
 
+  const handleToMyReservations = (trip) => {
+
+    console.log("ACA EL TRIP", trip)
+
+    // trip.destination = tripData.destination
+    // trip.origin = tripData.origin
+    // trip.destination = "Mendoza"
+    // trip.origin = "Buenos Aires"
+
+    navigation.navigate('LastReservations', {trip});
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Header />
@@ -28,7 +42,7 @@ export const FullBookingScreen = ({ navigation, route }) => {
           <Text style={styles.infoLabel}>Destination: {tripData.destination}</Text>
           <Text style={styles.infoLabel}>Date: {tripData.date}</Text>
           <Text style={styles.infoLabel}>Price: {tripData.price}</Text>
-          <Text style={styles.infoLabel}>Company: {tripData.selectedTrip.company}</Text>
+          <Text style={styles.infoLabel}>Company: {tripData.company}</Text>
           <Text style={styles.infoLabel}>Full Name: {userData.fullName}</Text>
           <Text style={styles.infoLabel}>Email: {userData.email}</Text>
           <Text style={styles.infoLabel}>Gender: {userData.gender}</Text>
@@ -52,9 +66,14 @@ export const FullBookingScreen = ({ navigation, route }) => {
             <FontAwesome name="print" size={24} color="white" />
             <Text style={styles.buttonText}>Print</Text>
           </TouchableOpacity>
-
-        
         </View>
+
+        <View style={{marginTop: 20}}>
+          <AppButton textButton="Check my reservations" color="#e38b3d" onPress={() => handleToMyReservations(tripData)}>
+            <Icon name="location" size={20} color="white" style={{ marginRight: 10 }} />
+          </AppButton>
+        </View>
+
       </View>
       <NavigationBar navigation={navigation} />
     </ScrollView>
